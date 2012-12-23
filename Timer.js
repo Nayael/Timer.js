@@ -1,8 +1,13 @@
+/*!
+ * A Timer class to easily handle timing in JavaScript (based on AS3 Timer)
+ * by Nicolas Vannier
+ * http://www.nicolas-vannier.com
+ * 
+ * Date: Sun Dec 23 2012 22:56:30 GMT+0200
+ */
+
 /**
- * @class Timer
- * @classDescription A timer class to easily handle timing in JavaScript (based on AS3 Timer)
- * @author Nicolas Vannier
- ***************************
+ * @constructor
  * @param {number} delay	The delay between timer events, in milliseconds
  * @param {int} repeatCount	Specifies the number of repetitions. If zero, the timer repeats infinitely.
  */
@@ -85,7 +90,7 @@ function Timer(delay, repeatCount) {
  */
 Timer.prototype.start = function() {
 	var repeatCount;
-	if (this.running || this.currentCount >= (repeatCount = this.getRepeatCount())) {	// If the timer is already running, or is already over, we stop the method
+	if (this.running || ((repeatCount = this.getRepeatCount()) != 0 && this.currentCount >= repeatCount)) {	// If the timer is already running, or is already over, we stop the method
 		return;
 	}
 	this.running = true;
