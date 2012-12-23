@@ -19,14 +19,14 @@ function Timer(delay, repeatCount) {
 //////////
 // PRIVATE MEMBERS
 //
-	var that = this;
-	var _repeatCount;
-	var _delay;
-	var _timer = null;		// The setInterval or setTimeout reference
-	var _callbacks = {
-		TIMER: [],
-		TIMER_COMPLETE: []
-	};
+	var that = this,
+		_repeatCount,
+		_delay,
+		_timer = null,		// The setInterval or setTimeout reference
+		_callbacks = {
+			TIMER: [],
+			TIMER_COMPLETE: []
+		};
 
 
 //////////
@@ -83,7 +83,7 @@ function Timer(delay, repeatCount) {
 	// We call the setters on instanciation to handle special cases
 	this.setRepeatCount(repeatCount);
 	this.setDelay(delay);
-}
+};
 
 /**
  * Starts the timer, if it is not already running.
@@ -95,11 +95,10 @@ Timer.prototype.start = function() {
 	}
 	this.running = true;
 	
-	var that = this;
-	var callbacks = this.getCallbacks().TIMER;
-
-	// The method called on each loop, that calls the listeners
-	var trigger = function() {
+	var that = this,
+		callbacks = this.getCallbacks().TIMER,
+	
+		trigger = function() {	// The method called on each loop, that calls the listeners
 		if (!that.running) {
 			return;
 		}
