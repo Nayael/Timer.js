@@ -72,9 +72,6 @@ function Timer(delay, repeatCount) {
 	};
 
 	this.setTimer = function(value) {
-		if (_timer != undefined) {
-			that.reset();
-		}
 		_timer = value;
 	};
 
@@ -87,32 +84,30 @@ function Timer(delay, repeatCount) {
  * Starts the timer, if it is not already running.
  */
 Timer.prototype.start = function() {
-	if (this.running) {
+	var repeatCount;
+	if (this.running || this.currentCount >= (repeatCount = this.getRepeatCount())) {	// If the timer is already running, or is already over, we stop the method
 		return;
 	}
 	this.running = true;
-	console.log('this.running: ', this.running);
-
+	
 	var that = this;
-	console.log('that: ', that);
-	var repeatCount = that.getRepeatCount();
-	var callbacks = that.getCallbacks().TIMER;
+	var callbacks = this.getCallbacks().TIMER;
 
 	// The method called on each loop, that calls the listeners
 	var trigger = function() {
-		// console.log('that: ', that);
 		if (!that.running) {
 			return;
 		}
 
+		// We call all the listeners for the TIMER event
 		for (var i = 0; i < callbacks.length; i++) {
 			callbacks[i]();
 		};
 
 		that.currentCount++;
 		if (repeatCount != 0 && that.currentCount >= repeatCount) {	// If the loop is not infinite, and the current count has reached the repeat count
-			that.complete();	// We call the TIMER_COMPLETE listeners
 			that.stop();		// We stop the timer
+			that.complete();	// We call the TIMER_COMPLETE listeners
 			return;
 		}
 	};
@@ -132,7 +127,7 @@ Timer.prototype.stop = function() {
 		return;
 	}
 	if (timer != undefined) {
-		clearInterval(this.getTimer());	// We stop the timer
+		clearInterval(timer);	// We stop the timer
 	}
 	this.running = false;
 };
@@ -154,9 +149,9 @@ Timer.prototype.complete = function() {
  * as set by the repeatCount value.
  */
 Timer.prototype.reset = function() {
+	this.currentCount = 0;
 	if (this.running) {
 		this.stop();
-		this.currentCount = 0;
 	}
 };
 
