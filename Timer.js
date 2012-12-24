@@ -1,5 +1,6 @@
 /*!
  * A Timer class to easily handle timing in JavaScript (based on AS3 Timer)
+ *
  * by Nicolas Vannier
  * http://www.nicolas-vannier.com
  * 
@@ -81,8 +82,8 @@ function Timer(delay, repeatCount) {
 	};
 
 	// We call the setters on instanciation to handle special cases
-	this.setRepeatCount(repeatCount);
-	this.setDelay(delay);
+	this.setRepeatCount(parseInt(repeatCount));
+	this.setDelay(parseInt(delay));
 };
 
 /**
@@ -189,9 +190,8 @@ Timer.prototype.removeEventListener = function(event, callback) {
 
 /**
  * A list of timer related events
- * @type object
  */
 Timer.Event = {
 	TIMER: 'TIMER',						// Triggered on each loop
-	TIMER_COMPLETE: 'TIMER_COMPLETE'	// Trigerred at the end of the timer
+	TIMER_COMPLETE: 'TIMER_COMPLETE'	// Triggered at the end of the timer
 };
