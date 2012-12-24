@@ -14,7 +14,7 @@
  */
 function Timer(delay, repeatCount) {
 	if (this == window) {
-		throw new Error('Timer is a class constructor. Use the keyword "new" to call it.');
+		throw new Error('Timer Error: Timer is a class constructor. Use the keyword "new" to call it.');
 	}
 
 //////////
@@ -23,7 +23,7 @@ function Timer(delay, repeatCount) {
 	var that = this,
 		_repeatCount,
 		_delay,
-		_timer = null,		// The setInterval or setTimeout reference
+		_timer = null,	// The setInterval or setTimeout reference id
 		_callbacks = {
 			TIMER: [],
 			TIMER_COMPLETE: []
@@ -64,6 +64,9 @@ function Timer(delay, repeatCount) {
 		if (_repeatCount != undefined) {
 			that.reset();
 		}
+		if (value < 0) {
+			throw new Error('Timer Error: "repeatCount" must be a positive number.');
+		}
 		_repeatCount = value;
 	};
 
@@ -72,7 +75,7 @@ function Timer(delay, repeatCount) {
 			that.reset();
 		}
 		if (value < 0) {
-			throw new Error('Timer Error : "delay" must be a positive number.');
+			throw new Error('Timer Error: "delay" must be a positive number.');
 		}
 		_delay = value;
 	};
