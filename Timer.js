@@ -102,7 +102,7 @@ Timer.prototype.start = function() {
 	var that = this,
 		callbacks = this.getCallbacks().TIMER,
 	
-		trigger = function() {	// The method called on each loop, that calls the listeners
+	trigger = function() {	// The method called on each loop, that calls the listeners
 		if (!that.running) {
 			return;
 		}
